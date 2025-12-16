@@ -3,63 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CineMaster VIP - Streaming Premium 4K</title>
+    <title>CineMaster VIP - A Elite do Streaming</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- VARIÁVEIS & RESET --- */
+        /* --- CONFIGURAÇÕES GERAIS E VARIÁVEIS --- */
         :root {
-            --primary-color: #E50914; /* Vermelho Netflix */
-            --dark-bg: #0a0a0a;
-            --card-bg: #141414;
-            --text-color: #e5e5e5;
-            --accent-gradient: linear-gradient(45deg, #E50914, #B20710);
+            --primary: #E50914; /* Vermelho Netflix Vibrante */
+            --primary-dark: #b20710;
+            --bg-color: #050505; /* Quase preto absoluto */
+            --surface-color: #101010;
+            --text-color: #ffffff;
+            --text-secondary: #b3b3b3;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glow: 0 0 20px rgba(229, 9, 20, 0.6);
         }
+
+        html { scroll-behavior: smooth; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         
-        body { background-color: var(--dark-bg); color: var(--text-color); overflow-x: hidden; }
+        body { background-color: var(--bg-color); color: var(--text-color); overflow-x: hidden; }
         
         a { text-decoration: none; color: white; transition: 0.3s; }
         ul { list-style: none; }
         
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* --- ANIMAÇÕES --- */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 15px rgba(229, 9, 20, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(229, 9, 20, 0.7); }
+            100% { box-shadow: 0 0 15px rgba(229, 9, 20, 0.4); }
+        }
 
         /* --- BOTÕES --- */
         .btn-cta {
-            background: var(--accent-gradient);
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
-            padding: 16px 40px;
+            padding: 18px 45px;
             font-size: 1.1rem;
             font-weight: 800;
             text-transform: uppercase;
             border-radius: 50px;
-            box-shadow: 0 0 25px rgba(229, 9, 20, 0.4);
-            display: inline-block;
-            border: 2px solid transparent;
+            box-shadow: 0 10px 30px rgba(229, 9, 20, 0.3);
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid transparent;
             cursor: pointer;
+            transition: all 0.3s ease;
         }
 
         .btn-cta:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 40px rgba(229, 9, 20, 0.7);
-            background: transparent;
-            border-color: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(229, 9, 20, 0.5);
+            letter-spacing: 1px;
         }
 
-        .btn-full { width: 100%; text-align: center; border-radius: 8px; }
+        .btn-full { width: 100%; justify-content: center; border-radius: 12px; }
 
-        /* --- HERO SECTION (TOPO) --- */
+        /* --- HERO SECTION (TOPO CINEMATOGRÁFICO) --- */
         .hero {
             height: 95vh;
-            /* Imagem de fundo estilo cinema */
-            background: linear-gradient(to bottom, rgba(0,0,0,0.6), #0a0a0a), 
-                        url('https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=1920&auto=format&fit=crop');
+            /* Fundo com imagem de alta qualidade e gradiente radial para foco */
+            background: radial-gradient(circle at center, rgba(0,0,0,0.3) 0%, var(--bg-color) 100%),
+                        linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, var(--bg-color) 100%),
+                        url('https://images.unsplash.com/photo-1574375927938-d5a98e8efe85?q=80&w=1920&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed; /* Efeito Parallax */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -67,188 +88,230 @@
             position: relative;
         }
 
-        .hero-content h1 {
-            font-size: 3.5rem;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            font-weight: 800;
+        .hero-content {
+            animation: fadeUp 1s ease-out;
+            max-width: 900px;
+            z-index: 2;
         }
 
-        .hero-content h1 span {
-            color: var(--primary-color);
-            text-shadow: 0 0 20px rgba(229,9,20,0.5);
-        }
-
-        .hero-content p {
-            font-size: 1.2rem;
-            color: #ccc;
-            max-width: 700px;
-            margin: 0 auto 40px auto;
-        }
-
-        .badges {
+        .hero-badges {
             display: flex;
             justify-content: center;
             gap: 15px;
-            margin-bottom: 30px;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-        
-        .badge-item { background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 20px; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2); }
-        .badge-item i { color: var(--primary-color); margin-right: 5px; }
-
-        /* --- SEÇÃO BENEFÍCIOS --- */
-        .features-section { padding: 80px 0; background: #0f0f0f; }
-        
-        .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-size: 2.2rem; margin-bottom: 10px; }
-        .section-header .line { width: 80px; height: 4px; background: var(--primary-color); margin: 0 auto; }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            margin-bottom: 25px;
         }
 
-        .feature-card {
-            background: var(--card-bg);
+        .hero-badge {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            color: var(--primary);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            backdrop-filter: blur(5px);
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            font-weight: 900;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        .hero h1 span {
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            background-image: linear-gradient(to right, #ff3b3b, #a80000);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #d1d1d1;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        /* --- EFEITO VIDRO (GLASSMORPHISM) NOS CARDS --- */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
             padding: 30px;
-            border-radius: 12px;
-            text-align: center;
-            border: 1px solid #222;
-            transition: 0.3s;
+            transition: transform 0.3s, border-color 0.3s;
         }
 
-        .feature-card:hover { border-color: var(--primary-color); transform: translateY(-5px); }
-        .feature-icon { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 20px; }
-        .feature-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
-        .feature-card p { font-size: 0.9rem; color: #888; }
+        .glass-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-10px);
+        }
 
         /* --- CARROSSEL (SLIDERS) --- */
-        .carousel-section { padding: 40px 0; position: relative; overflow: hidden; }
-        .carousel-header { display: flex; justify-content: space-between; align-items: end; margin-bottom: 20px; padding: 0 5px; }
-        .carousel-header h2 { font-size: 1.5rem; color: white; border-left: 4px solid var(--primary-color); padding-left: 15px; }
+        .carousel-section { padding: 50px 0; position: relative; }
         
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding: 0 10px;
+        }
+        
+        .section-title h2 { font-size: 1.8rem; font-weight: 700; }
+        .section-title .bar { height: 30px; width: 4px; background: var(--primary); border-radius: 2px; }
+
         .carousel-container { position: relative; width: 100%; }
         
         .carousel-track {
             display: flex;
-            gap: 15px;
+            gap: 20px;
             overflow-x: auto;
             scroll-behavior: smooth;
-            padding: 10px 5px 20px 5px;
+            padding: 20px 10px 40px 10px; /* Padding extra embaixo para o hover não cortar */
             scrollbar-width: none;
         }
         .carousel-track::-webkit-scrollbar { display: none; }
 
         /* Card Filme */
         .movie-card {
-            min-width: 160px;
-            height: 240px;
-            border-radius: 8px;
+            min-width: 180px;
+            height: 270px;
+            border-radius: 12px;
             overflow: hidden;
             position: relative;
-            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
             flex-shrink: 0;
         }
         .movie-card img { width: 100%; height: 100%; object-fit: cover; }
-        .movie-card:hover { transform: scale(1.08); z-index: 10; box-shadow: 0 10px 20px rgba(0,0,0,0.8); border: 2px solid var(--primary-color); }
+        .movie-card:hover { 
+            transform: scale(1.1); 
+            z-index: 10; 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.8); 
+            border: 2px solid var(--primary);
+        }
 
         /* Card Canal */
         .channel-card {
-            min-width: 140px;
-            height: 80px;
-            background: #1a1a1a;
-            border-radius: 8px;
+            min-width: 150px;
+            height: 90px;
+            background: #151515;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             border: 1px solid #333;
             flex-shrink: 0;
             transition: 0.3s;
+            color: #fff;
+            font-weight: 900;
+            font-size: 1.1rem;
         }
-        .channel-card:hover { border-color: var(--primary-color); background: #222; }
-        .channel-card span { font-weight: 900; font-size: 1.1rem; }
+        .channel-card:hover { border-color: var(--primary); background: #1a1a1a; box-shadow: 0 0 15px rgba(229,9,20,0.2); }
 
-        /* Setas do Carrossel */
+        /* Setas de Navegação */
         .nav-btn {
-            position: absolute;
-            top: 50%; transform: translateY(-50%);
-            background: rgba(0,0,0,0.7);
-            color: white; border: none;
-            width: 40px; height: 100%;
-            cursor: pointer; z-index: 5;
-            opacity: 0; transition: 0.3s;
-            font-size: 2rem;
+            position: absolute; top: 0; bottom: 0;
+            width: 60px;
+            background: rgba(0,0,0,0.5);
+            border: none; color: white;
+            font-size: 2rem; cursor: pointer;
+            z-index: 5; opacity: 0; transition: 0.3s;
             display: flex; align-items: center; justify-content: center;
         }
         .carousel-container:hover .nav-btn { opacity: 1; }
-        .prev-btn { left: 0; background: linear-gradient(to right, #000, transparent); }
-        .next-btn { right: 0; background: linear-gradient(to left, #000, transparent); }
+        .prev-btn { left: 0; background: linear-gradient(to right, black, transparent); }
+        .next-btn { right: 0; background: linear-gradient(to left, black, transparent); }
 
-        /* --- PRICING (PLANOS) --- */
-        .pricing { padding: 80px 0; background: #080808; }
-        .pricing-cards { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 50px; }
+        /* --- PLANOS (PRICING) --- */
+        .pricing { padding: 100px 0; background: #080808; position: relative; }
+        
+        .pricing-header { text-align: center; margin-bottom: 60px; }
+        .pricing-header h2 { font-size: 3rem; margin-bottom: 15px; }
+        .pricing-header span { color: var(--primary); }
+
+        .pricing-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            align-items: center; /* Alinha verticalmente para o destaque funcionar */
+        }
 
         .price-card {
-            background: var(--card-bg);
             width: 320px;
-            padding: 40px;
-            border-radius: 20px;
-            position: relative;
-            border: 1px solid #333;
             display: flex; flex-direction: column;
+            position: relative;
         }
 
+        /* Destaque para o plano do meio */
         .price-card.featured {
-            border: 2px solid var(--primary-color);
-            box-shadow: 0 0 30px rgba(229, 9, 20, 0.15);
-            transform: scale(1.05); z-index: 2;
+            background: linear-gradient(145deg, rgba(20,20,20,0.9), rgba(30,30,30,0.9));
+            border: 2px solid var(--primary);
+            transform: scale(1.1);
+            z-index: 2;
+            animation: pulseGlow 3s infinite;
         }
-
-        .tag-promo {
-            position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
-            background: var(--primary-color); padding: 5px 20px; border-radius: 20px;
-            font-size: 0.8rem; font-weight: bold; text-transform: uppercase;
-        }
-
-        .plan-name { font-size: 1.5rem; margin-bottom: 10px; color: #fff; text-align: center; }
-        .price-tag { text-align: center; font-size: 3.5rem; font-weight: 800; color: var(--primary-color); margin: 20px 0; }
-        .price-tag span { font-size: 1rem; color: #666; font-weight: 400; }
         
-        .benefits-list { margin-bottom: 30px; flex-grow: 1; }
-        .benefits-list li { margin-bottom: 15px; display: flex; align-items: center; font-size: 0.95rem; color: #ccc; }
-        .benefits-list li i { color: var(--primary-color); margin-right: 12px; }
+        .plan-badge {
+            position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+            background: var(--primary); color: white;
+            padding: 8px 20px; border-radius: 30px;
+            font-weight: 700; font-size: 0.8rem; text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(229,9,20,0.4);
+        }
+
+        .plan-title { text-align: center; font-size: 1.5rem; margin-bottom: 20px; color: white; }
+        .plan-price { text-align: center; font-size: 3.5rem; font-weight: 800; color: var(--primary); margin-bottom: 20px; line-height: 1; }
+        .plan-price span { font-size: 1rem; color: var(--text-secondary); font-weight: 400; display: block; margin-top: 5px; }
+
+        .features-list li {
+            margin-bottom: 18px;
+            color: #d1d1d1;
+            font-size: 0.95rem;
+            display: flex; align-items: center;
+        }
+        .features-list li i { color: var(--primary); margin-right: 15px; font-size: 1.1rem; }
 
         /* --- FAQ --- */
         .faq-section { padding: 80px 0; max-width: 800px; margin: 0 auto; }
-        .faq-item { background: #111; margin-bottom: 15px; padding: 20px; border-radius: 8px; border-left: 3px solid var(--primary-color); }
-        .faq-question { font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; }
-        .faq-answer { margin-top: 10px; font-size: 0.9rem; color: #999; display: none; }
-        .faq-item:hover .faq-answer { display: block; }
+        .faq-item { background: #121212; margin-bottom: 15px; border-radius: 8px; overflow: hidden; }
+        .faq-question {
+            padding: 20px; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+            font-weight: 600; transition: background 0.3s;
+        }
+        .faq-question:hover { background: #1a1a1a; }
+        .faq-answer { padding: 0 20px 20px 20px; color: #999; display: none; font-size: 0.95rem; line-height: 1.6; }
+        .faq-item.active .faq-answer { display: block; }
+        .faq-item.active .faq-question i { transform: rotate(180deg); }
 
         /* --- FOOTER --- */
-        footer { text-align: center; padding: 40px 0; border-top: 1px solid #222; font-size: 0.9rem; color: #555; }
+        footer { padding: 50px 0; border-top: 1px solid #222; text-align: center; color: #666; font-size: 0.9rem; }
         
         .whatsapp-float {
-            position: fixed; bottom: 20px; right: 20px;
+            position: fixed; bottom: 30px; right: 30px;
             background-color: #25d366; color: white;
-            padding: 15px; border-radius: 50%;
-            font-size: 2rem; z-index: 100;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            width: 60px; height: 60px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.5rem; z-index: 100;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
             transition: transform 0.3s;
         }
         .whatsapp-float:hover { transform: scale(1.1); }
 
         /* --- RESPONSIVIDADE --- */
         @media (max-width: 768px) {
-            .hero-content h1 { font-size: 2.2rem; }
-            .pricing-cards { flex-direction: column; align-items: center; }
-            .price-card.featured { transform: scale(1); }
-            .nav-btn { display: none; }
-            .movie-card { min-width: 130px; height: 190px; }
+            .hero h1 { font-size: 2.8rem; }
+            .pricing-grid { flex-direction: column; }
+            .price-card.featured { transform: scale(1); width: 100%; max-width: 350px; }
+            .nav-btn { display: none; } /* Setas somem no mobile */
         }
     </style>
 </head>
@@ -256,96 +319,83 @@
 
     <header class="hero">
         <div class="container hero-content">
-            <div class="badges">
-                <div class="badge-item"><i class="fas fa-rocket"></i> Sem Travamentos</div>
-                <div class="badge-item"><i class="fas fa-wifi"></i> 4K Ultra HD</div>
-                <div class="badge-item"><i class="fas fa-headset"></i> Suporte 24h</div>
+            <div class="hero-badges">
+                <span class="hero-badge"><i class="fas fa-check"></i> Sem Travamentos</span>
+                <span class="hero-badge"><i class="fas fa-star"></i> 4K Ultra HD</span>
             </div>
-            <h1>Diga Adeus às <br><span>Mensalidades Caras</span></h1>
-            <p>Transforme sua TV em um Cinema. Mais de 120.000 conteúdos entre Canais, Filmes e Séries. Instalação imediata sem burocracia.</p>
-            
+            <h1>O CINEMA NA <br><span>SUA CASA</span></h1>
+            <p>Acesse mais de 120.000 conteúdos. Filmes que acabaram de sair do cinema, séries exclusivas e canais ao vivo. Tudo em um só lugar.</p>
             <a href="#planos" class="btn-cta">
-                <i class="fas fa-play-circle" style="margin-right:10px;"></i> Liberar Meu Acesso
+                Quero Testar Agora <i class="fas fa-arrow-right" style="margin-left: 10px;"></i>
             </a>
-            <p style="margin-top: 15px; font-size: 0.8rem; opacity: 0.7;">Teste grátis disponível. Sem fidelidade.</p>
+            <p style="font-size: 0.8rem; margin-top: 15px; opacity: 0.6;">Satisfação garantida ou seu dinheiro de volta.</p>
         </div>
     </header>
 
     <section class="carousel-section container">
-        <div class="carousel-header">
-            <h2>🔥 Em Alta no Cinema</h2>
+        <div class="section-title">
+            <div class="bar"></div>
+            <h2>Em Alta no Cinema</h2>
         </div>
 
         <div class="carousel-container" id="carousel-movies">
             <button class="nav-btn prev-btn" onclick="scrollCarousel('track-movies', -300)">‹</button>
-            
             <div class="carousel-track" id="track-movies">
-                <div class="movie-card"><img src="https://image.tmdb.org/t/p/w300/qhjP8QdxN8fx644ewMJQQ6YSh7.jpg" alt="Filme"></div>
-                <div class="movie-card"><img src="https://image.tmdb.org/t/p/w300/gKkl37BQuKTanygYQG1pyYgLVgf.jpg" alt="Filme"></div>
-                <div class="movie-card"><img src="https://image.tmdb.org/t/p/w300/3bhkrj58Vtu7enYsRolD1fZdja1.jpg" alt="Filme"></div>
-                <div class="movie-card"><img src="https://image.tmdb.org/t/p/w300/8CdXUu8M1f6lFmC0A33Zg3c3f.jpg" alt="Filme"></div>
-                <div class="movie-card"><img src="https://image.tmdb.org/t/p/w300/1E5baAaEse26fej7uHcjOgEE2t2.jpg" alt="Filme"></div>
-                <div class="movie-card"><img src="https://image.tmdb.org/t/p/w300/mv8M0PqQYicndp7aQv4g1fNn1.jpg" alt="Filme"></div>
-                <div class="movie-card"><img src="https://image.tmdb.org/t/p/w300/r2J02Z2OpKYl7LCM60XSPdeLSX5.jpg" alt="Filme"></div>
-                <div class="movie-card"><img src="https://image.tmdb.org/t/p/w300/ui4DrH1cKk2nyHHeelnUgb0Z0.jpg" alt="Filme"></div>
-                <div class="movie-card"><img src="https://image.tmdb.org/t/p/w300/fiVW06jE7z9YnO4trhaMEdclSiC.jpg" alt="Filme"></div>
+                <div class="movie-card"><img src="https://image.tmdb.org/t/p/w500/qhjP8QdxN8fx644ewMJQQ6YSh7.jpg" alt="Filme"></div>
+                <div class="movie-card"><img src="https://image.tmdb.org/t/p/w500/gKkl37BQuKTanygYQG1pyYgLVgf.jpg" alt="Filme"></div>
+                <div class="movie-card"><img src="https://image.tmdb.org/t/p/w500/3bhkrj58Vtu7enYsRolD1fZdja1.jpg" alt="Filme"></div>
+                <div class="movie-card"><img src="https://image.tmdb.org/t/p/w500/8CdXUu8M1f6lFmC0A33Zg3c3f.jpg" alt="Filme"></div>
+                <div class="movie-card"><img src="https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg" alt="Filme"></div>
+                <div class="movie-card"><img src="https://image.tmdb.org/t/p/w500/mv8M0PqQYicndp7aQv4g1fNn1.jpg" alt="Filme"></div>
+                <div class="movie-card"><img src="https://image.tmdb.org/t/p/w500/r2J02Z2OpKYl7LCM60XSPdeLSX5.jpg" alt="Filme"></div>
+                <div class="movie-card"><img src="https://image.tmdb.org/t/p/w500/ui4DrH1cKk2nyHHeelnUgb0Z0.jpg" alt="Filme"></div>
             </div>
-
             <button class="nav-btn next-btn" onclick="scrollCarousel('track-movies', 300)">›</button>
         </div>
     </section>
 
-    <section class="carousel-section container" style="padding-top: 0;">
-        <div class="carousel-header">
-            <h2>📺 Canais ao Vivo</h2>
+    <section class="carousel-section container">
+        <div class="section-title">
+            <div class="bar"></div>
+            <h2>Canais Premium</h2>
         </div>
 
         <div class="carousel-container" id="carousel-channels">
             <button class="nav-btn prev-btn" onclick="scrollCarousel('track-channels', -300)">‹</button>
-            
             <div class="carousel-track" id="track-channels">
                 <div class="channel-card"><span style="color:#E50914;">NETFLIX</span></div>
-                <div class="channel-card"><span style="color:#00A8E1;">PRIME</span></div>
+                <div class="channel-card"><span style="color:#00A8E1;">PRIME VIDEO</span></div>
                 <div class="channel-card"><span style="color:#fff;">HBO MAX</span></div>
-                <div class="channel-card"><span style="color:#CC0000;">ESPN</span></div>
-                <div class="channel-card"><span style="color:#003087;">SPORTV</span></div>
                 <div class="channel-card"><span style="color:#F5C518;">TELECINE</span></div>
+                <div class="channel-card"><span style="color:#CC0000;">ESPN</span></div>
+                <div class="channel-card"><span style="color:#003087;">PREMIERE</span></div>
                 <div class="channel-card"><span style="color:#ff00ff;">VIVA</span></div>
                 <div class="channel-card"><span style="color:#00ff00;">GLOBO</span></div>
-                <div class="channel-card"><span style="color:#ff6600;">SBT</span></div>
             </div>
-
             <button class="nav-btn next-btn" onclick="scrollCarousel('track-channels', 300)">›</button>
         </div>
     </section>
 
-    <section class="features-section">
+    <section style="padding: 80px 0;">
         <div class="container">
-            <div class="section-header">
-                <h2>Por que somos a <span style="color:var(--primary-color)">Elite?</span></h2>
-                <div class="line"></div>
+            <div class="pricing-header">
+                <h2>Tecnologia de <span>Ponta</span></h2>
             </div>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <i class="fas fa-server feature-icon"></i>
-                    <h3>Servidores Próprios</h3>
-                    <p>Tecnologia P2P e CDN que garante estabilidade, mesmo em dias de jogos finais.</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+                <div class="glass-card">
+                    <i class="fas fa-server" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 20px;"></i>
+                    <h3 style="margin-bottom: 10px;">Anti-Travamento</h3>
+                    <p style="color:#aaa; font-size:0.9rem;">Nossa CDN própria garante que você assista a final do campeonato sem delays ou telas pretas.</p>
                 </div>
-                <div class="feature-card">
-                    <i class="fas fa-film feature-icon"></i>
-                    <h3>Catálogo Infinito</h3>
-                    <p>Atualizações diárias. Saiu no cinema? Em poucos dias já estará na sua grade.</p>
+                <div class="glass-card">
+                    <i class="fas fa-mobile-alt" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 20px;"></i>
+                    <h3 style="margin-bottom: 10px;">Assista em Tudo</h3>
+                    <p style="color:#aaa; font-size:0.9rem;">Smart TV, TV Box, Celular, Computador. Um único login funciona em todos os seus aparelhos.</p>
                 </div>
-                <div class="feature-card">
-                    <i class="fas fa-tv feature-icon"></i>
-                    <h3>Multi-Dispositivos</h3>
-                    <p>Use na Smart TV, TV Box, Celular (Android/iOS), PC e Videogame.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-robot feature-icon"></i>
-                    <h3>Ativação Automática</h3>
-                    <p>Pagou, recebeu. Nosso sistema libera seu login e senha em segundos.</p>
+                <div class="glass-card">
+                    <i class="fas fa-rocket" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 20px;"></i>
+                    <h3 style="margin-bottom: 10px;">Entrega Imediata</h3>
+                    <p style="color:#aaa; font-size:0.9rem;">Sistema automático. Pagou, recebeu o login no WhatsApp e e-mail na mesma hora.</p>
                 </div>
             </div>
         </div>
@@ -353,47 +403,48 @@
 
     <section id="planos" class="pricing">
         <div class="container">
-            <div class="section-header">
-                <h2>Escolha seu <span style="color:var(--primary-color)">Plano</span></h2>
-                <p style="color:#777;">Preços justos. Sem letras miúdas. Cancele quando quiser.</p>
+            <div class="pricing-header">
+                <h2>Planos <span>Flexíveis</span></h2>
+                <p style="color: #888;">Sem fidelidade. Cancele quando quiser.</p>
             </div>
 
-            <div class="pricing-cards">
-                <div class="price-card">
-                    <div class="plan-name">Bronze</div>
-                    <div class="price-tag">R$ 19<span>/mês</span></div>
-                    <ul class="benefits-list">
+            <div class="pricing-grid">
+                <div class="glass-card price-card">
+                    <div class="plan-title">Bronze</div>
+                    <div class="plan-price">R$ 19<span>/mês</span></div>
+                    <ul class="features-list">
                         <li><i class="fas fa-check"></i> 1 Tela Conectada</li>
-                        <li><i class="fas fa-check"></i> Qualidade SD e HD</li>
+                        <li><i class="fas fa-check"></i> Qualidade SD/HD</li>
                         <li><i class="fas fa-check"></i> Filmes e Séries</li>
                         <li><i class="fas fa-check"></i> Suporte Básico</li>
                     </ul>
-                    <a href="#" class="btn-cta btn-full" style="background: #333; box-shadow:none;">Assinar</a>
+                    <a href="#" class="btn-cta btn-full" style="background: #333; box-shadow: none;">Assinar</a>
                 </div>
 
-                <div class="price-card featured">
-                    <div class="tag-promo">Mais Vendido</div>
-                    <div class="plan-name">CineMaster Gold</div>
-                    <div class="price-tag">R$ 29<span>/mês</span></div>
-                    <ul class="benefits-list">
+                <div class="glass-card price-card featured">
+                    <div class="plan-badge">Mais Popular</div>
+                    <div class="plan-title">CineMaster Gold</div>
+                    <div class="plan-price">R$ 29<span>/mês</span></div>
+                    <ul class="features-list">
                         <li><i class="fas fa-check-circle"></i> <strong>2 Telas Simultâneas</strong></li>
-                        <li><i class="fas fa-check-circle"></i> <strong>Qualidade 4K Ultra</strong></li>
-                        <li><i class="fas fa-check-circle"></i> Grade Completa + Adultos</li>
-                        <li><i class="fas fa-check-circle"></i> Anti-Travamento VIP</li>
+                        <li><i class="fas fa-check-circle"></i> <strong>4K Ultra HD</strong></li>
+                        <li><i class="fas fa-check-circle"></i> Canais Adultos (Opcional)</li>
+                        <li><i class="fas fa-check-circle"></i> Servidor VIP (Mais rápido)</li>
+                        <li><i class="fas fa-check-circle"></i> Suporte Prioritário</li>
                     </ul>
-                    <a href="#" class="btn-cta btn-full">Assinar Agora</a>
+                    <a href="#" class="btn-cta btn-full">Quero Este!</a>
                 </div>
 
-                <div class="price-card">
-                    <div class="plan-name">Família 4K</div>
-                    <div class="price-tag">R$ 49<span>/mês</span></div>
-                    <ul class="benefits-list">
+                <div class="glass-card price-card">
+                    <div class="plan-title">Família</div>
+                    <div class="plan-price">R$ 49<span>/mês</span></div>
+                    <ul class="features-list">
                         <li><i class="fas fa-check"></i> 4 Telas Simultâneas</li>
-                        <li><i class="fas fa-check"></i> Qualidade 4K HDR</li>
+                        <li><i class="fas fa-check"></i> 4K Ultra HD</li>
                         <li><i class="fas fa-check"></i> Multi-IP (Casas diferentes)</li>
-                        <li><i class="fas fa-check"></i> Prioridade no Suporte</li>
+                        <li><i class="fas fa-check"></i> Suporte Premium</li>
                     </ul>
-                    <a href="#" class="btn-cta btn-full" style="background: #333; box-shadow:none;">Assinar</a>
+                    <a href="#" class="btn-cta btn-full" style="background: #333; box-shadow: none;">Assinar</a>
                 </div>
             </div>
         </div>
@@ -401,45 +452,52 @@
 
     <section class="faq-section">
         <div class="container">
-            <h2 style="text-align: center; margin-bottom: 40px;">Dúvidas Frequentes</h2>
+            <h2 style="text-align: center; margin-bottom: 40px;">Perguntas Frequentes</h2>
             
             <div class="faq-item">
-                <div class="faq-question">Preciso de aparelho especial? <i class="fas fa-chevron-down"></i></div>
-                <div class="faq-answer">Não! Você pode usar diretamente no aplicativo da sua Smart TV, no celular ou computador.</div>
+                <div class="faq-question" onclick="toggleFaq(this)">Preciso comprar algum aparelho? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">Não! Se você já tem uma Smart TV, Computador ou Celular, não precisa comprar nada. Basta instalar nosso app.</div>
             </div>
             <div class="faq-item">
-                <div class="faq-question">Como recebo o acesso? <i class="fas fa-chevron-down"></i></div>
-                <div class="faq-answer">Assim que o pagamento é confirmado, você recebe automaticamente os dados de login no seu WhatsApp e E-mail.</div>
+                <div class="faq-question" onclick="toggleFaq(this)">Minha internet aguenta? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">Recomendamos 10MB para canais HD e 30MB para conteúdos 4K. Nosso sistema ajusta a qualidade automaticamente.</div>
             </div>
             <div class="faq-item">
-                <div class="faq-question">Posso testar antes? <i class="fas fa-chevron-down"></i></div>
-                <div class="faq-answer">Sim! Oferecemos um teste grátis de 4 horas para você comprovar a qualidade.</div>
+                <div class="faq-question" onclick="toggleFaq(this)">Como funciona o teste grátis? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">Você solicita o teste, recebe o login na hora e tem acesso total por 4 horas para conferir a qualidade antes de pagar.</div>
             </div>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <h3>CineMaster VIP</h3>
+            <h3 style="color: white; margin-bottom: 10px;">CineMaster VIP</h3>
             <p>Copyright © 2025. Todos os direitos reservados.</p>
             <div style="margin-top: 20px;">
-                <i class="fab fa-whatsapp" style="margin: 0 10px; font-size: 1.5rem;"></i>
-                <i class="fab fa-instagram" style="margin: 0 10px; font-size: 1.5rem;"></i>
+                <i class="fab fa-instagram" style="font-size: 1.5rem; margin: 0 10px; cursor: pointer; color: white;"></i>
+                <i class="fab fa-facebook" style="font-size: 1.5rem; margin: 0 10px; cursor: pointer; color: white;"></i>
             </div>
         </div>
     </footer>
 
-    <a href="#" class="whatsapp-float" title="Falar no WhatsApp">
+    <a href="#" class="whatsapp-float">
         <i class="fab fa-whatsapp"></i>
     </a>
 
     <script>
+        // Lógica do Carrossel
         function scrollCarousel(elementId, distance) {
             const container = document.getElementById(elementId);
             container.scrollBy({
                 left: distance,
                 behavior: 'smooth'
             });
+        }
+
+        // Lógica do FAQ (Acordeão)
+        function toggleFaq(element) {
+            const parent = element.parentElement;
+            parent.classList.toggle('active');
         }
     </script>
 </body>
