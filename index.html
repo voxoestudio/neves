@@ -237,7 +237,126 @@
             .price-card.featured { transform: scale(1); }
             .badges { flex-wrap: wrap; }
         }
-    </style>
+   /* --- ESTILO DOS CARROSSÉIS --- */
+.carousel-section {
+    padding: 60px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 20px;
+    padding: 0 20px;
+}
+
+.carousel-header h2 {
+    font-size: 1.8rem;
+    color: white;
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 20px; /* Espaço para o shadow não cortar */
+    scrollbar-width: none; /* Firefox */
+}
+
+.carousel-track::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+/* Item do Poster (Filmes) */
+.movie-card {
+    min-width: 160px;
+    height: 240px;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.movie-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.movie-card:hover {
+    transform: scale(1.1);
+    z-index: 10;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.8);
+    border: 2px solid var(--primary-color);
+}
+
+/* Item de Canal (Logos) */
+.channel-card {
+    min-width: 140px;
+    height: 80px;
+    background: #1a1a1a;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #333;
+    flex-shrink: 0;
+    transition: 0.3s;
+}
+
+.channel-card:hover {
+    border-color: var(--primary-color);
+    background: #222;
+}
+
+.channel-card i, .channel-card span {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* Botões de Navegação (Setas) */
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.7);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 100%; /* Altura total do carrossel */
+    cursor: pointer;
+    z-index: 5;
+    opacity: 0;
+    transition: 0.3s;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-container:hover .nav-btn {
+    opacity: 1;
+}
+
+.prev-btn { left: 0; background: linear-gradient(to right, #000, transparent); }
+.next-btn { right: 0; background: linear-gradient(to left, #000, transparent); }
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .movie-card { min-width: 130px; height: 190px; }
+    .nav-btn { display: none; } /* No celular usa o dedo, esconde as setas */
+} </style>
 </head>
 <body>
 
